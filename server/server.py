@@ -22,10 +22,10 @@ from azure.storage.blob import BlobServiceClient, BlobClient
 SERVER_ROOT = Path(__file__).parent  # This is now /project/server/
 AZURE_CONNECTION_STRING = (
     "DefaultEndpointsProtocol=https;AccountName=meshanimation;"
-    "AccountKey=lO9SdOtm52F2aLaYzP59xlwI4IcJpJJBTwvRqx4z8MGO2joEdLj6dEwWAVFhpaOfhOvgW6Sf+Ii4+AStnwPwTg==;"
+    "AccountKey=xxxxx"
     "EndpointSuffix=core.windows.net"
 )
-ANTHROPIC_API_KEY = "sk-7b1d3c2f-0e4f-4a5c-8b6d-9c1e2f3a4b5c"
+ANTHROPIC_API_KEY = "xxxxxx"
 AZURE_CONTAINER_NAME = "fbx-animation-files"
 
 # ---- import the core Make-It-Animatable code --------------------
