@@ -33,7 +33,7 @@ class MakeItAnimatableJobHandler(
  
     @classmethod
     def preload(cls, cache_path: Path = Path("/home/ray/csm/models/make_it_animatable/data")):
-        data_path = Path("/home/ray/csm/models/make_it_animatable/data")
+        data_path = cache_path / "make_it_animatable_data"
         if data_path.exists():
             logger.info("Data already downloaded")
             return
@@ -41,7 +41,7 @@ class MakeItAnimatableJobHandler(
         download_zip_from_azure_if_missing("make_it_animatable_data.zip", data_path)
         
         subprocess.run(
-            ["mv", "/home/ray/csm/models/make_it_animatable/data/data", "/home/ray/csm/models/make_it_animatable/data"]
+            ["cp", "-r", data_path / "data", Path("/home/ray/csm/models/make_it_animatable/data")]
         )
         subprocess.run(
             ["chmod", "+x", "/home/ray/csm/models/make_it_animatable/data/FBX2glTF"]
