@@ -39,7 +39,10 @@ class MakeItAnimatableJobHandler(
             return
         logger.info("Downloading data")
         download_zip_from_azure_if_missing("make_it_animatable_data.zip", data_path)
-
+        
+        subprocess.run(
+            ["mv", "/home/ray/csm/models/make_it_animatable/data/data", "/home/ray/csm/models/make_it_animatable/data"]
+        )
         subprocess.run(
             ["chmod", "+x", "/home/ray/csm/models/make_it_animatable/data/FBX2glTF"]
         )
