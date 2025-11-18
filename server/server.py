@@ -22,7 +22,7 @@ from azure.storage.blob import BlobServiceClient, BlobClient
 SERVER_ROOT = Path(__file__).parent  # This is now /project/server/
 AZURE_CONNECTION_STRING = (
     "DefaultEndpointsProtocol=https;AccountName=meshanimation;"
-    "AccountKey=xxxxx"
+    f"AccountKey={os.getenv('MESH_ANIMATION_BUCKET_KEY')}"
     "EndpointSuffix=core.windows.net"
 )
 ANTHROPIC_API_KEY = "xxxxxx"
