@@ -30,8 +30,9 @@ class MakeItAnimatableJobHandler(
         self.job_update_class = MakeItAnimatableJobUpdate
 
         init_models()
-
-    def preload(self, cache_path: Path):
+ 
+    @classmethod
+    def preload(cls, cache_path: Path = Path("/home/ray/csm/models/make_it_animatable/data")):
         data_path = Path("/home/ray/csm/models/make_it_animatable/data")
         if data_path.exists():
             logger.info("Data already downloaded")
