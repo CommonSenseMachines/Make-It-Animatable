@@ -91,8 +91,14 @@ def _log_message(
     elif level == "warning":
         warnings.warn(message)
 
-    blocks = LocalContext.blocks.get()
-    event_id = LocalContext.event_id.get()
+    try:
+        blocks = LocalContext.blocks.get()
+        event_id = LocalContext.event_id.get()
+    except LookupError:
+        # Context variables not set when running outside Gradio
+        blocks = None
+        event_id = None
+
     if blocks is not None and event_id is not None:
         # Function called outside of Gradio if blocks is None
         # Or from /api/predict if event_id is None
@@ -1073,7 +1079,7 @@ def vis_blender(
         # Directly call bpy here causes crash, because Blender does not support modifying data in child threads
         with tempfile.NamedTemporaryFile(suffix=".npz") as f:
             np.savez(f.name, **data)
-            cmd = f"python app_blender.py --input_path '{f.name}' --output_path '{os.path.abspath(db.anim_path)}'"
+            cmd = f"python models/make_it_animatable/app_blender.py --input_path '{f.name}' --output_path '{os.path.abspath(db.anim_path)}'"
             cmd += f" --template_path '{os.path.abspath(template_path)}'"
             if db.is_mesh:
                 cmd += f" --rest_path '{os.path.abspath(db.rest_vis_path)}'"
@@ -1089,7 +1095,7 @@ def vis_blender(
                     cmd += " --retarget"
                 if inplace:
                     cmd += " --inplace"
-            cmd += " > /dev/null 2>&1"
+            # cmd += " > /dev/null 2>&1"
             # print(cmd)
             os.system(cmd)
 
