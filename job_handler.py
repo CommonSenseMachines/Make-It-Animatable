@@ -30,16 +30,16 @@ class MakeItAnimatableJobHandler(
         self.job_update_class = MakeItAnimatableJobUpdate
 
         init_models()
- 
+
     @classmethod
     def preload(cls, cache_path: Path = Path("/home/ray")):
-        data_path = cache_path / "make_it_animatable_data"
-        if data_path.exists():
+        if Path("/home/ray/csm/models/make_it_animatable/data").exists():
             logger.info("Data already downloaded")
             return
+        data_path = cache_path / "make_it_animatable_data"
         logger.info("Downloading data")
         download_zip_from_azure_if_missing("make_it_animatable_data.zip", data_path)
-        
+
         subprocess.run(
             ["cp", "-r", data_path / "data", Path("/home/ray/csm/models/make_it_animatable/data")]
         )
